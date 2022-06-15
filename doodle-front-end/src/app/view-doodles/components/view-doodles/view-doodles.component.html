@@ -1,1 +1,13 @@
-<p>view-doodles works!</p>
+<div class="doodles-container">
+  <h2  *ngIf="loadingService.isLoading; else elseBlock" class="loading-spinner">Loading...</h2>
+  <ng-template #elseBlock>
+    <mat-card *ngFor="let meeting of meetings" class="meeting-card">
+      <mat-card-content>
+        {{meeting.title}}
+        {{meeting.description}}
+        {{meeting.dateTime}}
+        {{meeting.location}}
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>

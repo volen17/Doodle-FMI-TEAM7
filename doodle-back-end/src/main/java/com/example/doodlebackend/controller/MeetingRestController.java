@@ -33,7 +33,7 @@ public class MeetingRestController {
 
     @GetMapping()
     @CrossOrigin
-    public ResponseEntity<List<Meeting>> getAllMeetings() throws ExecutionException, InterruptedException {
-        return new ResponseEntity<>(meetingService.getAllMeetings(), HttpStatus.OK);
+    public ResponseEntity<List<Meeting>> getAllUserMeetings(@RequestParam String userEmail) throws ExecutionException, InterruptedException {
+        return new ResponseEntity<>(meetingService.getAllUserMeetings(userEmail), HttpStatus.OK);
     }
 }

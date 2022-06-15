@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {LoginUser, User} from "../models/User";
+import {Meeting} from "../models/Meeting";
 
 const SEPARATOR = '/';
 
@@ -21,5 +22,9 @@ export class DoodleApiService {
 
   public login(loginUser: LoginUser) {
     return this.httpClient.post(this._url + SEPARATOR + 'users' + SEPARATOR + 'login', loginUser, {responseType: 'text'})
+  }
+
+  public getUserMeetings(userEmail: string) {
+    return this.httpClient.get<Meeting[]>(this._url + SEPARATOR + 'meetings' + SEPARATOR + '?userEmail=' + userEmail);
   }
 }

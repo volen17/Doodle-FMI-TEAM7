@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewDoodlesComponent } from './components/view-doodles/view-doodles.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -9,7 +11,12 @@ import { ViewDoodlesComponent } from './components/view-doodles/view-doodles.com
     ViewDoodlesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+  ],
+  exports: [
+    ViewDoodlesComponent
   ]
 })
 export class ViewDoodlesModule { }

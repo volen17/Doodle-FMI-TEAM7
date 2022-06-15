@@ -9,6 +9,7 @@ import {HomepageModule} from "./homepage/homepage.module";
 import {RegistrationModule} from "./registration/registration.module";
 import {LoginModule} from "./login/login.module";
 import { HttpClientModule } from '@angular/common/http';
+import {ViewDoodlesModule} from "./view-doodles/view-doodles.module";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
         HomepageModule,
         RegistrationModule,
         LoginModule,
+      ViewDoodlesModule,
         HttpClientModule,
     ],
   providers: [],

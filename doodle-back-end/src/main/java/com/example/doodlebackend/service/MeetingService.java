@@ -8,6 +8,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,19 @@ public class MeetingService {
             ApiFuture<DocumentSnapshot> future = temp.get();
             DocumentSnapshot documentSnapshot = future.get();
             Meeting meeting = documentSnapshot.toObject(Meeting.class);
+            meetings.add(meeting);
+        }
+
+        return meetings;
+    }
+
+    public List<Meeting> getAllUserMeetings(String userId) throws ExecutionException, InterruptedException {
+        dbFirestore = FirestoreClient.getFirestore();
+        QuerySnapshot querySnapshot = dbFirestore.collection("meetings").whereEqualTo("owner", userId).get().get();
+        List<Meeting> meetings = new ArrayList<>();
+
+        for(DocumentSnapshot document: querySnapshot.getDocuments()) {
+            Meeting meeting = document.toObject(Meeting.class);
             meetings.add(meeting);
         }
 
