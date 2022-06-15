@@ -8,12 +8,22 @@
       great collaboration.</h2>
     <mat-form-field class="meetingId-form" appearance="fill">
       <mat-label>Meeting ID</mat-label>
-      <input class="form-input" matInput placeholder="Enter your Meeting ID if you have one!">
+      <input [(ngModel)]="meetingId" class="form-input" matInput placeholder="Enter your Meeting ID if you have one!"
+             [formControl]="meetingIdFormControl" [errorStateMatcher]="matcher">
     </mat-form-field>
-    <button class="submit-button" mat-raised-button>
-      View Meeting
+    <button
+      *ngIf="!loadingService.isLoading; else elseBlock"
+      [disabled]="meetingIdFormControl.invalid"
+      (click)="navigate('/doodles/' + meetingId)"
+      class="submit-button"
+      type="submit"
+      mat-raised-button
+    >View Meeting
       <mat-icon class="arrow">arrow_forward</mat-icon>
     </button>
+    <ng-template #elseBlock>
+      <button class="submit-button" disabled type="submit" mat-raised-button>Loading...</button>
+    </ng-template>
   </div>
   <img class="image" src="assets/hero.png">
 </div>

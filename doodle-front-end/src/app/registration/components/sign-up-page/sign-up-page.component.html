@@ -31,6 +31,9 @@
         <mat-error *ngIf="passwordFormControl.hasError('required')">
           Password is <strong>required</strong>
         </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('pattern')">
+          Password <strong>must</strong> contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Confirm password</mat-label>

@@ -40,7 +40,7 @@ button.mat-raised-button {
   border-radius: 30px;
 }
 
-button.mat-raised-button:hover {
+button.mat-raised-button:hover:enabled {
   background-color: map-get(mat.$deep-purple-palette, 100);
   color: black;
 }
