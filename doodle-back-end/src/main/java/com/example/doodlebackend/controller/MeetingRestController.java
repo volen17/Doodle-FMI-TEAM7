@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -22,7 +23,7 @@ public class MeetingRestController {
     @PostMapping()
     @CrossOrigin
     public ResponseEntity<Meeting> saveMeeting(@RequestBody Meeting meeting) throws ExecutionException, InterruptedException {
-        return new ResponseEntity<>(meetingService.saveMeeting(meeting), HttpStatus.CREATED);
+        return new ResponseEntity<>(meetingService.saveMeeting(meeting), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

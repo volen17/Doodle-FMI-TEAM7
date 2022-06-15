@@ -7,6 +7,7 @@ import org.springframework.cloud.gcp.data.firestore.Document;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Document(collectionName = "meetings")
@@ -17,7 +18,9 @@ public class Meeting {
 
     private String title;
 
-    private Date dateTime;
+    private Date dateTimeStart;
+
+    private Date dateTimeEnd;
 
     private String location;
 
@@ -26,6 +29,24 @@ public class Meeting {
     private String owner;
 
     private List<String> participants;
+
+    private Map<String, List<String>> votes;
+
+    public Date getDateTimeStart() {
+        return dateTimeStart;
+    }
+
+    public void setDateTimeStart(Date dateTimeStart) {
+        this.dateTimeStart = dateTimeStart;
+    }
+
+    public Date getDateTimeEnd() {
+        return dateTimeEnd;
+    }
+
+    public void setDateTimeEnd(Date dateTimeEnd) {
+        this.dateTimeEnd = dateTimeEnd;
+    }
 
     public Meeting() {
 
@@ -45,14 +66,6 @@ public class Meeting {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
     }
 
     public String getLocation() {
@@ -83,6 +96,14 @@ public class Meeting {
         return owner;
     }
 
+    public Map<String, List<String>> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Map<String, List<String>> votes) {
+        this.votes = votes;
+    }
+
     public void setOwner(String owner) {
         this.owner = owner;
     }
@@ -91,11 +112,13 @@ public class Meeting {
     public String toString() {
         return " Meeting{id: " + getId()
                 + ", title: " + getTitle()
-                + ", dateTime: " + getDateTime()
+                + ", dateTimeStart: " + getDateTimeStart()
+                + ", dateTimeEnd: " + getDateTimeEnd()
                 + ", location: " + getLocation()
                 + ", description: " + getDescription()
                 + ", owner: " + getOwner().toString()
                 + ", participants: " + getParticipants().toString()
+                + ", votes: " + getVotes().toString()
                 + "\n";
     }
 }
