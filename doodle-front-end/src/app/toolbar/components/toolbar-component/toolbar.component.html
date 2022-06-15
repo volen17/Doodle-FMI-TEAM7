@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <a class="image-homepage-ref" href="">
+    <img src="assets/logo.png"/>
+  </a>
+  <span class="flex-expand"></span>
+  <button *ngIf="isLoggedIn" class="doodles-button" mat-raised-button (click)="navigate('/doodles')">
+    <mat-icon>menu</mat-icon>
+    My Doodles
+  </button>
+  <a *ngIf="!isLoggedIn" class="login-ref" href="login">Log in</a>
+  <button *ngIf="!isLoggedIn" class="sign-up-button" mat-raised-button (click)="navigate('/registration')">
+    Sign up
+  </button>
+  <button *ngIf="!isCreateDoodleOpened" class="create-doodle-button" mat-stroked-button
+          (click)="navigate('/new-doodle')">
+    <mat-icon>
+      add
+    </mat-icon>
+    Create a Doodle
+  </button>
+</mat-toolbar>
+
+

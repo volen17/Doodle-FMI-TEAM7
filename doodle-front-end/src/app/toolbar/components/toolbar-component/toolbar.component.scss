@@ -1,0 +1,90 @@
+@use '@angular/material' as mat;
+
+@import '~@angular/material/theming';
+
+@include mat.core();
+
+mat-toolbar {
+  background-color: white;
+  display: flex;
+  position: sticky;
+  font-family: "Suisse Intl", Helvetica, Arial, sans-serif;
+  padding: 40px;
+}
+
+.flex-expand {
+    flex: 1 1 auto;
+}
+
+.login-ref {
+  text-decoration: none;
+  color: map-get(mat.$deep-purple-palette, 500);
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: medium;
+  font-weight: normal;
+}
+
+.login-ref:active {
+  color: map-get(mat.$deep-purple-palette, 500)
+}
+
+.login-ref:hover {
+  color: black;
+}
+
+.login-ref[tabindex]:focus {
+  color:black;
+  outline: none;
+}
+
+img {
+  width: 20%;
+  height: auto;
+  padding-top: 10px;
+}
+
+button.mat-raised-button {
+  background-color: map-get(mat.$deep-purple-palette, 500);
+  color: white;
+  font-weight: lighter;
+  border-radius: 30px;
+}
+
+button.mat-raised-button:hover {
+  background-color: map-get(mat.$deep-purple-palette, 100);
+  color: black;
+}
+
+button.mat-stroked-button {
+  background-color: map-get(mat.$amber-palette, 50);
+  color: map-get(mat.$amber-palette, 500);
+  border-color: map-get(mat.$amber-palette, 500);
+  font-weight: lighter;
+  border-radius: 30px;
+}
+
+button.mat-stroked-button:hover {
+  background-color: white;
+}
+
+.create-doodle-button {
+  margin: 10px;
+  width: 160px;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sign-up-button {
+  margin: 10px;
+  width: 80px;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.doodles-button {
+  width: 160px;
+  height: 40px;
+}
