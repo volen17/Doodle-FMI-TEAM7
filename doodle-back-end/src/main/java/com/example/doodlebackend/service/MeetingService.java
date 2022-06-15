@@ -1,6 +1,5 @@
 package com.example.doodlebackend.service;
 
-import com.example.doodlebackend.common.MeetingDocument;
 import com.example.doodlebackend.entity.Meeting;
 import com.example.doodlebackend.entity.User;
 import com.example.doodlebackend.exception.UserNotFoundException;
