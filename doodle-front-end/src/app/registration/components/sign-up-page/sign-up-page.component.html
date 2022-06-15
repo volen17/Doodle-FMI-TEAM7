@@ -7,10 +7,17 @@
       Schedule faster, get the right people together, and manage your <br>
       time at work better. That’s Doodle.
     </h2>
-    <form class="registration-form">
+    <form class="registration-form" (submit)="saveUser($event)">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="name" matInput placeholder="Enter full name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Email</mat-label>
-        <input type="email" matInput placeholder="Enter valid email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+        <input [(ngModel)]="email" type="email" matInput placeholder="Enter valid email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
           Please enter a valid email address
         </mat-error>
@@ -20,21 +27,28 @@
       </mat-form-field>
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Password</mat-label>
-        <input type="password" matInput placeholder="Enter your password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+        <input [(ngModel)]="password" type="password" matInput placeholder="Enter your password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
         <mat-error *ngIf="passwordFormControl.hasError('required')">
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Confirm password</mat-label>
-        <input type="password" matInput placeholder="Confirm your password" [formControl]="passwordFormControl"  [errorStateMatcher]="matcher">
+        <input [(ngModel)]="confirmedPassword" type="password" matInput placeholder="Confirm your password" [formControl]="passwordFormControl"  [errorStateMatcher]="matcher">
         <mat-error *ngIf="passwordFormControl.hasError('required')">
           Confirmation of password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <button  class="submit-button" mat-raised-button>
-        Create account
-      </button>
+      <button
+        *ngIf="!loadingService.isLoading; else elseBlock"
+        [disabled]="emailFormControl.invalid || nameFormControl.invalid || passwordFormControl.invalid"
+        class ="submit-button"
+        type="submit"
+        mat-raised-button
+      >Create account</button>
+      <ng-template #elseBlock>
+        <button class ="submit-button" disabled type="submit" mat-raised-button>Creating...</button>
+      </ng-template>
     </form>
   </div>
 </div>

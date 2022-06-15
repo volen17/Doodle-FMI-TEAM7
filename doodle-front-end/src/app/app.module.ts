@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {HomepageModule} from "./homepage/homepage.module";
 import {RegistrationModule} from "./registration/registration.module";
 import {LoginModule} from "./login/login.module";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {LoginModule} from "./login/login.module";
         NoopAnimationsModule,
         HomepageModule,
         RegistrationModule,
-        LoginModule
+        LoginModule,
+        HttpClientModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

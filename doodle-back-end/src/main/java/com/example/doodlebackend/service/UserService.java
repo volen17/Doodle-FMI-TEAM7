@@ -1,15 +1,25 @@
 package com.example.doodlebackend.service;
 
+import com.example.doodlebackend.entity.LoginUserInfo;
 import com.example.doodlebackend.entity.Meeting;
+import com.example.doodlebackend.entity.NewUserInfo;
 import com.example.doodlebackend.entity.User;
+import com.example.doodlebackend.exception.PasswordsNotMatchingException;
 import com.example.doodlebackend.exception.UserNotFoundException;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.auth.hash.Bcrypt;
 import com.google.firebase.cloud.FirestoreClient;
+import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UserService {
@@ -17,13 +27,44 @@ public class UserService {
     @Autowired
     private Firestore dbFirestore;
 
-    public User saveUser(User user) throws ExecutionException, InterruptedException {
+    public boolean checkUserExists(String email) throws ExecutionException, InterruptedException {
         dbFirestore = FirestoreClient.getFirestore();
-        if(dbFirestore.collection("users").document(user.getEmail()).get().get().contains("password")) {
-            return user;
+        if (dbFirestore.collection("users").document(email).get().get().contains("password")) {
+            return true;
         }
+        return false;
+    }
+
+    public String login(LoginUserInfo loginUserInfo) throws ExecutionException, InterruptedException {
+        dbFirestore = FirestoreClient.getFirestore();
+        String encodedPassword = dbFirestore.collection("users").document(loginUserInfo.getEmail()).get().get().getString("password");
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if(!encoder.matches(loginUserInfo.getPassword(), encodedPassword)) {
+            throw new PasswordsNotMatchingException();
+        }
+
+        return loginUserInfo.getEmail();
+    }
+
+    public String saveUser(NewUserInfo newUserInfo) throws ExecutionException, InterruptedException {
+        dbFirestore = FirestoreClient.getFirestore();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(newUserInfo.getPassword());
+
+
+        if(!encoder.matches(newUserInfo.getConfirmedPassword(), encodedPassword)) {
+            throw new PasswordsNotMatchingException();
+        }
+
+        User user = new User();
+        user.setPassword(encodedPassword);
+        user.setName(newUserInfo.getName());
+        user.setEmail(newUserInfo.getEmail());
+
         dbFirestore.collection("users").document(user.getEmail()).set(user);
-        return user;
+        return user.getEmail();
     }
 
     public User getUser(String email) throws UserNotFoundException, ExecutionException, InterruptedException {
@@ -34,7 +75,7 @@ public class UserService {
 
         User user;
 
-        if(documentSnapshot.exists()) {
+        if (documentSnapshot.exists()) {
             user = documentSnapshot.toObject(User.class);
             return user;
         } else {
@@ -54,7 +95,7 @@ public class UserService {
         Iterator<DocumentReference> iterator = documentReference.iterator();
         List<User> users = new ArrayList<>();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             DocumentReference temp = iterator.next();
             ApiFuture<DocumentSnapshot> future = temp.get();
             DocumentSnapshot documentSnapshot = future.get();

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {LocalStorageService} from "../../../services/localstorage.service";
+import {BehaviorSubject} from "rxjs";
+import {LoadingService} from "../../../services/loading.service";
 
 @Component({
   selector: 'app-toolbar-component',
@@ -8,15 +11,17 @@ import {Router} from "@angular/router";
 })
 export class ToolbarComponent implements OnInit {
   isCreateDoodleOpened = false;
-  isLoggedIn = false;
 
   constructor(
     private router: Router,
+    public localStorageService: LocalStorageService,
   ) { }
 
   async navigate(url: string) {
     return this.router.navigate([url]);
   }
+
+
 
   ngOnInit(): void {
   }

@@ -1,5 +1,7 @@
 package com.example.doodlebackend.controller;
 
+import com.example.doodlebackend.entity.LoginUserInfo;
+import com.example.doodlebackend.entity.NewUserInfo;
 import com.example.doodlebackend.entity.User;
 import com.example.doodlebackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,20 @@ public class UserRestController {
 
     @PostMapping()
     @CrossOrigin
-    public ResponseEntity<User> saveUser(@RequestBody User user) throws ExecutionException, InterruptedException {
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+    public ResponseEntity<String> saveUser(@RequestBody NewUserInfo newUserInfo) throws ExecutionException, InterruptedException {
+        if(userService.checkUserExists(newUserInfo.getEmail())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(userService.saveUser(newUserInfo), HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    @CrossOrigin
+    public ResponseEntity<String> login(@RequestBody LoginUserInfo loginUserInfo) throws ExecutionException, InterruptedException {
+        if(!userService.checkUserExists(loginUserInfo.getEmail())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(userService.login(loginUserInfo), HttpStatus.OK);
     }
 
     @GetMapping("/{email}")
