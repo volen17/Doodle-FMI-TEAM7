@@ -25,4 +25,8 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  logOut() {
+    localStorage.clear();
+  }
 }

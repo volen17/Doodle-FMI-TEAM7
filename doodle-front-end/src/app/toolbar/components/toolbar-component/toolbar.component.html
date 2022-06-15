@@ -3,6 +3,7 @@
     <img src="assets/logo.png"/>
   </a>
   <span class="flex-expand"></span>
+  <a *ngIf="this.localStorageService.email" class="login-ref" href="" (click)="logOut()">Log out</a>
   <button *ngIf="!!this.localStorageService.email" class="doodles-button" mat-raised-button (click)="navigate('/doodles')">
     <mat-icon>menu</mat-icon>
     My Doodles
