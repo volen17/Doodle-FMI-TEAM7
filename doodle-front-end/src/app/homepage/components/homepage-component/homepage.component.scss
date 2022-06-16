@@ -1,0 +1,63 @@
+@use '@angular/material' as mat;
+
+@import '~@angular/material/theming';
+
+@include mat.core();
+
+.homepage-container {
+  display: flex;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.contents {
+  width: 50rem;
+  display: grid;
+  justify-items: center;
+}
+
+.image {
+  width: 700px;
+  height: 600px;
+  object-fit: cover;
+}
+
+h1 {
+  padding-top: 40px;
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 80px;
+}
+
+h2 {
+  font-weight: lighter;
+}
+
+button.mat-raised-button {
+  background-color: map-get(mat.$deep-purple-palette, 500);
+  color: white;
+  font-weight: lighter;
+  border-radius: 30px;
+}
+
+button.mat-raised-button:hover:enabled {
+  background-color: map-get(mat.$deep-purple-palette, 100);
+  color: black;
+}
+
+.meetingId-form {
+  width: 350px;
+}
+
+.submit-button {
+  width: 350px;
+  font-size: 17px;
+}
+
+.form-input {
+  height: 25px;
+}
+
+.arrow {
+  transform: scale(0.8);
+}

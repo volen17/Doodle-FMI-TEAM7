@@ -1,0 +1,39 @@
+<div class="sign-up-page-container">
+  <div class="form-container">
+    <h1>
+      Nice to see you again
+    </h1>
+    <h2>
+      Log in and get back to smooth scheduling
+    </h2>
+    <form class="registration-form" (submit)="login($event)">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input [(ngModel)]="email" type="email" matInput placeholder="Enter valid email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input [(ngModel)]="password" type="password" matInput placeholder="Enter your password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button
+        *ngIf="!loadingService.isLoading; else elseBlock"
+        [disabled]="emailFormControl.invalid || passwordFormControl.invalid"
+        class ="submit-button"
+        type="submit"
+        mat-raised-button
+      >Log in</button>
+      <ng-template #elseBlock>
+        <button class ="submit-button" disabled type="submit" mat-raised-button>Loading...</button>
+      </ng-template>
+    </form>
+  </div>
+</div>

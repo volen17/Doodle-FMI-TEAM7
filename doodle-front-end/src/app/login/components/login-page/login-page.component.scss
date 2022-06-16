@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+
+@import '~@angular/material/theming';
+
+@include mat.core();
+
+.registration-form {
+  display: grid;
+}
+
+.sign-up-page-container {
+  display: grid;
+  justify-content: center;
+}
+
+.form-container {
+  text-align: center;
+  border-radius: 10px;
+  width: 700px;
+  height: 450px;
+  padding: 100px 30px 30px 30px;
+  margin: 20px;
+  background-color: #F8F9FA;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-weight: lighter;
+}
+
+.form-field {
+  padding: 10px;
+}
+
+.submit-button {
+  height: 50px;
+  width: 100%;
+  justify-self: center;
+  border-radius: 20px;
+  font-size: 17px;
+}
+
+button.mat-raised-button {
+  background-color: map-get(mat.$deep-purple-palette, 500);
+  color: white;
+  font-weight: lighter;
+  border-radius: 30px;
+}
+
+button.mat-raised-button:hover:enabled {
+  background-color: map-get(mat.$deep-purple-palette, 100);
+  color: black;
+}

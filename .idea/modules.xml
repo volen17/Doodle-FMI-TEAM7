@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Doodle-FMI-TEAM7-master.iml" filepath="$PROJECT_DIR$/.idea/Doodle-FMI-TEAM7-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doodle-back-end/doodle-back-end.iml" filepath="$PROJECT_DIR$/doodle-back-end/doodle-back-end.iml" />
+    </modules>
+  </component>
+</project>
