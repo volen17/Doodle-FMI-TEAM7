@@ -4,6 +4,51 @@
       Create group poll
     </h1>
     <form class="create-form">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Your name</mat-label>
+        <input [(ngModel)]="name" matInput placeholder="Enter full name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Your email</mat-label>
+        <input [(ngModel)]="email" type="email" matInput placeholder="Enter valid email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input [(ngModel)]="title" class="form-input" matInput placeholder="Enter title"
+               [formControl]="titleFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="titleFormControl.hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Description (optional)</mat-label>
+        <input class="form-input" matInput placeholder="Enter description">
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Location (optional)</mat-label>
+        <input class="form-input" matInput placeholder="Enter location">
+      </mat-form-field>
+<!--      <mat-form-field appearance="fill">-->
+<!--        <mat-label>Enter a date range</mat-label>-->
+<!--        <mat-date-range-input [rangePicker]="picker">-->
+<!--          <input matStartDate placeholder="Start date">-->
+<!--          <input matEndDate placeholder="End date">-->
+<!--        </mat-date-range-input>-->
+<!--        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
+<!--        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--        <mat-date-range-picker #picker></mat-date-range-picker>-->
+<!--      </mat-form-field>-->
+
+
       <button
         class ="submit-button"
         type="submit"

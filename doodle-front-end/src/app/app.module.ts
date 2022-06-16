@@ -10,6 +10,8 @@ import {RegistrationModule} from "./registration/registration.module";
 import {LoginModule} from "./login/login.module";
 import { HttpClientModule } from '@angular/common/http';
 import {ViewDoodlesModule} from "./view-doodles/view-doodles.module";
+import {CreateDoodleModule} from "./create-doodle/create-doodle.module";
+import {ViewDoodleModule} from "./view-doodle/view-doodle.module";
 
 @NgModule({
   declarations: [
@@ -23,8 +25,11 @@ import {ViewDoodlesModule} from "./view-doodles/view-doodles.module";
         HomepageModule,
         RegistrationModule,
         LoginModule,
-      ViewDoodlesModule,
+        ViewDoodlesModule,
         HttpClientModule,
+        CreateDoodleModule,
+        ViewDoodlesModule,
+        ViewDoodleModule
     ],
   providers: [],
   bootstrap: [AppComponent]
