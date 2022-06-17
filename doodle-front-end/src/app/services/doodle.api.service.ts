@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Meeting } from '../models/Meeting';
+import {Meeting, NewMeeting} from '../models/Meeting';
 import { LoginUser, User } from '../models/User';
 
 const SEPARATOR = '/';
@@ -40,9 +40,7 @@ export class DoodleApiService {
     );
   }
 
-  public saveMeeting(meeting: Meeting) {
-    return this.httpClient.post(this._url + SEPARATOR + 'meetings', meeting, {
-      responseType: 'text',
-    });
+  public saveMeeting(meeting: NewMeeting) {
+    return this.httpClient.post<Meeting>(this._url + SEPARATOR + 'meetings', meeting);
   }
 }

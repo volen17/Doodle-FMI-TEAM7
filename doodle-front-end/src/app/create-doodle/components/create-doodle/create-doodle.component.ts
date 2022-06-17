@@ -19,12 +19,14 @@ export class CreateDoodleComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  email: string | undefined;
-  name: string | undefined;
+  email= this.localStorageService.email;
   title: string | undefined;
   description: string | undefined;
   location: string | undefined;
-  range: any;
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
 
   nowDate: Date;
   startDate: Date | undefined;
@@ -38,26 +40,32 @@ export class CreateDoodleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!this.localStorageService.email) {
+     this.router.navigate(['/login']);
+    }
   }
-  //
-  // saveMeeting(event: Event) {
-  //   event.preventDefault();
-  //
-  //   if(this.email && this.name && this.title) {
-  //     this.loadingService.start();
-  //     this.doodleApiService.saveMeeting({
-  //       owner: this.email,
-  //     }).subscribe({
-  //       next: async (email) => {
-  //         this.localStorageService.setEmail(email);
-  //         await this.router.navigate([`doodle/${(this.id)}`]);
-  //         this.loadingService.stop();
-  //         // redirect
-  //       },
-  //       error: (err) => {
-  //         this.loadingService.stop();
-  //       }}
-  //     );
-  //   }
-  // }
+
+  saveMeeting(event: Event) {
+    event.preventDefault();
+
+    if(this.title && this.range.value.start && this.range.value.end) {
+      this.loadingService.start();
+      this.doodleApiService.saveMeeting({
+        email: this.email,
+        title: this.title,
+        description: this.description,
+        location: this.location,
+        startDate: this.range.value.start,
+        endDate: this.range.value.end,
+      }).subscribe({
+        next: async (meeting) => {
+          await this.router.navigate([`doodles`, meeting.id]);
+          this.loadingService.stop();
+        },
+        error: (err) => {
+          this.loadingService.stop();
+        }}
+      );
+    }
+  }
 }

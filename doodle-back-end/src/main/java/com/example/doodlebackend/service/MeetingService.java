@@ -1,6 +1,7 @@
 package com.example.doodlebackend.service;
 
 import com.example.doodlebackend.entity.Meeting;
+import com.example.doodlebackend.entity.NewMeeting;
 import com.example.doodlebackend.entity.User;
 import com.example.doodlebackend.exception.UserNotFoundException;
 import com.google.api.core.ApiFuture;
@@ -23,10 +24,22 @@ public class MeetingService {
     @Autowired
     private Firestore dbFirestore;
 
-    public Meeting saveMeeting(Meeting meeting) throws ExecutionException, InterruptedException {
+    public Meeting saveMeeting(NewMeeting newMeeting) throws ExecutionException, InterruptedException {
+        Meeting meeting = new Meeting();
+        List<String> participants = new ArrayList<>();
+        participants.add(newMeeting.getEmail());
+        meeting.setOwner(newMeeting.getEmail());
+        meeting.setTitle(newMeeting.getTitle());
+        meeting.setLocation(newMeeting.getLocation());
+        meeting.setDescription(newMeeting.getDescription());
+        meeting.setDateTimeStart(newMeeting.getStartDate());
+        meeting.setDateTimeEnd(newMeeting.getEndDate());
+        meeting.setParticipants(participants);
+
         dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<DocumentReference> documentReference = dbFirestore.collection("meetings").add(meeting);
         meeting.setId(documentReference.get().getId());
+
         return meeting;
     }
 
