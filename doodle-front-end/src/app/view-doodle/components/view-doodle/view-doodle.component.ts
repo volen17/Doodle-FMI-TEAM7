@@ -31,6 +31,7 @@ export class ViewDoodleComponent implements OnInit {
       .getMeeting(id)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe((response) => {
+        console.log('opa');
         if (response) {
           this.meeting = response;
         }

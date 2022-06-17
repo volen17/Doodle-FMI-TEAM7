@@ -1,1 +1,29 @@
-<p>view-doodle works!</p>
+<div *ngIf="loading; else meetingPresent">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #meetingPresent>
+  <div *ngIf="meeting && loading == false">
+    <mat-card class="ghostwhite helvetica">
+      <mat-card-title>
+        {{ meeting.id }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        <strong>Title: </strong>{{ meeting.title }}</mat-card-subtitle
+      >
+      <mat-card-subtitle>
+        <strong>Start: </strong>{{ meeting.dateTime }}</mat-card-subtitle
+      >
+      <mat-card-subtitle class="purple-text">
+        <strong>Location: </strong>
+        {{ meeting.location }}
+      </mat-card-subtitle>
+      <mat-card-subtitle class="purple-text">
+        <strong>Description: </strong> {{ meeting.description }}
+      </mat-card-subtitle>
+
+      <mat-card-subtitle class="purple-text">
+        <strong>Owner: </strong> {{ meeting.owner }}
+      </mat-card-subtitle>
+    </mat-card>
+  </div>
+</ng-template>
