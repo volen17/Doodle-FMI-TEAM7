@@ -43,4 +43,13 @@ export class DoodleApiService {
   public saveMeeting(meeting: NewMeeting) {
     return this.httpClient.post<Meeting>(this._url + SEPARATOR + 'meetings', meeting);
   }
+
+  public vote(time: string, meetingId: string, userEmail: string) {
+    return this.httpClient.put(this._url + SEPARATOR + 'meetings' + SEPARATOR +  'vote', {
+      time,
+      meetingId,
+      userEmail,
+    },
+    { responseType: 'text' })
+  }
 }

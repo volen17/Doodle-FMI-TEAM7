@@ -3,6 +3,7 @@ package com.example.doodlebackend.controller;
 import com.example.doodlebackend.entity.Meeting;
 import com.example.doodlebackend.entity.NewMeeting;
 import com.example.doodlebackend.entity.User;
+import com.example.doodlebackend.entity.Vote;
 import com.example.doodlebackend.service.MeetingService;
 import com.example.doodlebackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class MeetingRestController {
     @CrossOrigin
     public ResponseEntity<Meeting> saveMeeting(@RequestBody NewMeeting meeting) throws ExecutionException, InterruptedException {
         return new ResponseEntity<>(meetingService.saveMeeting(meeting), HttpStatus.OK);
+    }
+
+    @PutMapping("/vote")
+    @CrossOrigin
+    public ResponseEntity<String> vote(@RequestBody Vote vote) throws ExecutionException, InterruptedException {
+        return new ResponseEntity<>(meetingService.vote(vote), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

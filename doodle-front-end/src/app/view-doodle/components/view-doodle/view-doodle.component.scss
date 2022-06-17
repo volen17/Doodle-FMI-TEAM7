@@ -1,0 +1,19 @@
+.meeting-info {
+  display: grid;
+  justify-items: center;
+}
+
+.meeting-title {
+  padding-bottom: 10px;
+}
+
+.vote {
+  display: grid;
+  grid-template-columns: 1fr 1fr 5fr;
+  align-items: center;
+}
+
+.votes {
+  padding: 20px;
+
+}

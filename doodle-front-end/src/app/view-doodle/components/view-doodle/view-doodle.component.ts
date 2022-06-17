@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { finalize } from 'rxjs';
 import { Meeting } from 'src/app/models/Meeting';
 import { DoodleApiService } from 'src/app/services/doodle.api.service';
+import {LocalStorageService} from "../../../services/localstorage.service";
 
 @Component({
   selector: 'app-view-doodle',
@@ -12,18 +13,28 @@ import { DoodleApiService } from 'src/app/services/doodle.api.service';
 export class ViewDoodleComponent implements OnInit {
   meeting: Meeting | undefined;
   meetingId: string | undefined;
+  email: string | null = null;
 
   loading = false;
 
+  times: string[] = [];
+
   constructor(
     route: ActivatedRoute,
-    private readonly doodleService: DoodleApiService
+    private readonly doodleService: DoodleApiService,
+    private localStorageService: LocalStorageService,
+    private router: Router,
   ) {
     this.meetingId = route.snapshot.paramMap.get('id') || '';
     this.getMeeting(this.meetingId);
   }
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.email = this.localStorageService.email;
+    if(!this.email) {
+    await this.router.navigate(['login']);
+    }
+  }
 
   getMeeting(id: string) {
     this.loading = true;
@@ -33,8 +44,17 @@ export class ViewDoodleComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.meeting = response;
-          console.log(this.meeting);
+          this.times=Object.keys(this.meeting.votes);
         }
       });
+  }
+
+  async placeVote(time: string) {
+    if(this.email && this.meetingId) {
+      this.doodleService.vote(time, this.meetingId, this.email).subscribe( () => {
+        window.location.reload();
+        }
+      );
+    }
   }
 }

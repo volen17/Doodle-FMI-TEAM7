@@ -17,7 +17,7 @@ public class FirebaseInitialization {
         FileInputStream serviceAccount;
         try {
             serviceAccount =
-                    new FileInputStream("doodle-back-end/src/main/resources/key.json");
+                    new FileInputStream("src/main/resources/key.json");
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))

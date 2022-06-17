@@ -3,8 +3,8 @@
 </div>
 <ng-template #meetingPresent>
   <div *ngIf="meeting && loading == false">
-    <mat-card class="ghostwhite helvetica">
-      <mat-card-title> Meeting ID: {{ meeting.id }} </mat-card-title>
+    <mat-card class="meeting-info">
+      <mat-card-title class="meeting-title"> Meeting ID: {{ meeting.id }} </mat-card-title>
       <mat-card-subtitle>
         <strong>Title: </strong>{{ meeting.title }}</mat-card-subtitle
       >
@@ -14,6 +14,9 @@
 
       <mat-card-subtitle>
         <strong>End: </strong>{{ meeting.dateTimeEnd }}</mat-card-subtitle
+      >
+      <mat-card-subtitle>
+        <strong>Duration: </strong>{{ meeting.duration }} hours</mat-card-subtitle
       >
       <mat-card-subtitle class="purple-text">
         <strong>Location: </strong>
@@ -26,6 +29,19 @@
       <mat-card-subtitle class="purple-text">
         <strong>Owner: </strong> {{ meeting.owner }}
       </mat-card-subtitle>
+
+
     </mat-card>
+    <div class="votes">
+      <div *ngFor="let vote of this.times" class="vote">
+        <div>{{vote}} Votes: {{this.meeting.votes[vote].length}}</div>
+        <button [disabled]="this.meeting.votes[vote].includes(this.email)" mat-raised-button (click)="placeVote(vote)">Vote</button>
+        <div></div>
+        <div>
+          {{this.meeting.votes[vote].join(',')}}
+        </div>
+      </div>
+
+    </div>
   </div>
 </ng-template>
