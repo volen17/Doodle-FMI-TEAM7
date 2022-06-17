@@ -1,6 +1,7 @@
 package com.example.doodlebackend.controller;
 
 import com.example.doodlebackend.entity.Meeting;
+import com.example.doodlebackend.entity.NewMeeting;
 import com.example.doodlebackend.entity.User;
 import com.example.doodlebackend.service.MeetingService;
 import com.example.doodlebackend.service.UserService;
@@ -22,7 +23,7 @@ public class MeetingRestController {
 
     @PostMapping()
     @CrossOrigin
-    public ResponseEntity<Meeting> saveMeeting(@RequestBody Meeting meeting) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Meeting> saveMeeting(@RequestBody NewMeeting meeting) throws ExecutionException, InterruptedException {
         return new ResponseEntity<>(meetingService.saveMeeting(meeting), HttpStatus.OK);
     }
 
