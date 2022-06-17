@@ -15,6 +15,8 @@ export class ViewDoodleComponent implements OnInit {
   meetingId: string | undefined;
   email: string | null = null;
 
+  participants: string[] = [];
+
   loading = false;
 
   times: string[] = [];
@@ -45,6 +47,8 @@ export class ViewDoodleComponent implements OnInit {
         if (response) {
           this.meeting = response;
           this.times=Object.keys(this.meeting.votes);
+          this.participants = this.meeting.participants;
+
         }
       });
   }

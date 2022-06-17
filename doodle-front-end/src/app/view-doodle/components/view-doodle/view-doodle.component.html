@@ -42,6 +42,13 @@
         </div>
       </div>
 
+    <div>
+      <mat-card-title style="padding: 5px">Participants:</mat-card-title>
+      <mat-card *ngFor="let participant of participants" class="meeting-card">
+        <mat-card-subtitle>
+          <strong>User: </strong> {{ participant }}
+        </mat-card-subtitle>
+      </mat-card>
     </div>
   </div>
 </ng-template>
