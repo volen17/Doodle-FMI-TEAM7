@@ -13,6 +13,8 @@ export class ViewDoodleComponent implements OnInit {
   meeting: Meeting | undefined;
   meetingId: string | undefined;
 
+  participants: string[] = [];
+
   loading = false;
 
   constructor(
@@ -33,6 +35,7 @@ export class ViewDoodleComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.meeting = response;
+          this.participants = this.meeting.participants;
           console.log(this.meeting);
         }
       });
