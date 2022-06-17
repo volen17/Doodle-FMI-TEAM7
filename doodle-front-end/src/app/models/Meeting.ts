@@ -7,6 +7,8 @@ export interface Meeting {
   description: string;
   owner: string;
   participants: string[];
+  votes: any;
+  duration: number;
 }
 
 export interface NewMeeting {
@@ -16,4 +18,6 @@ export interface NewMeeting {
   location: string | undefined;
   startDate: any;
   endDate: any;
+  times: Date[];
+  duration: number;
 }

@@ -16,9 +16,11 @@ export class CreateDoodleComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   nameFormControl = new FormControl('', [Validators.required]);
   titleFormControl = new FormControl('', [Validators.required]);
+  durationFormControl = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();
 
+  duration: number | undefined;
   email= this.localStorageService.email;
   title: string | undefined;
   description: string | undefined;
@@ -32,6 +34,11 @@ export class CreateDoodleComponent implements OnInit {
   startDate: Date | undefined;
   endDate: Date | undefined;
 
+  startTime: Date | undefined;
+  newTimeDate = new FormControl(new Date());
+
+  times: Date[] = [];
+
   constructor(public doodleApiService: DoodleApiService,
               public loadingService: LoadingService,
               public localStorageService: LocalStorageService,
@@ -39,16 +46,31 @@ export class CreateDoodleComponent implements OnInit {
     this.nowDate = new Date();
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     if(!this.localStorageService.email) {
-     this.router.navigate(['/login']);
+     await this.router.navigate(['/login']);
     }
+  }
+
+  addNewTime(event: Event) {
+    event.preventDefault();
+    const newTime = new Date(
+      this.newTimeDate.value.getYear() + 1900,
+      this.newTimeDate.value.getMonth(),
+      this.newTimeDate.value.getDate(),
+      this.startTime?.getHours(),
+      this.startTime?.getMinutes(),
+      this.startTime?.getSeconds(),
+      this.startTime?.getMilliseconds()
+    )
+
+    this.times.push(newTime);
   }
 
   saveMeeting(event: Event) {
     event.preventDefault();
 
-    if(this.title && this.range.value.start && this.range.value.end) {
+    if(this.title && this.range.value.start && this.range.value.end && this.duration) {
       this.loadingService.start();
       this.doodleApiService.saveMeeting({
         email: this.email,
@@ -57,6 +79,8 @@ export class CreateDoodleComponent implements OnInit {
         location: this.location,
         startDate: this.range.value.start,
         endDate: this.range.value.end,
+        times: this.times,
+        duration: this.duration,
       }).subscribe({
         next: async (meeting) => {
           await this.router.navigate([`doodles`, meeting.id]);

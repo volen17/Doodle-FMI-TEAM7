@@ -46,4 +46,13 @@ export class DoodleApiService {
       meeting
     );
   }
+
+  public vote(time: string, meetingId: string, userEmail: string) {
+    return this.httpClient.put(this._url + SEPARATOR + 'meetings' + SEPARATOR +  'vote', {
+      time,
+      meetingId,
+      userEmail,
+    },
+    { responseType: 'text' })
+  }
 }

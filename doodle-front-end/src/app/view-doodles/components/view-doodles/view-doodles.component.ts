@@ -40,4 +40,7 @@ export class ViewDoodlesComponent implements OnInit {
       },
     });
   }
+  async navigateTo(meetingId: string) {
+    await this.router.navigate(['doodles', meetingId]);
+  }
 }

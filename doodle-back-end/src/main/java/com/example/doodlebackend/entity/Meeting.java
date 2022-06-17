@@ -28,6 +28,16 @@ public class Meeting {
 
     private String owner;
 
+    private Integer duration;
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
     private List<String> participants;
 
     private Map<String, List<String>> votes;

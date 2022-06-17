@@ -1,6 +1,7 @@
 package com.example.doodlebackend.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class NewMeeting {
     private String name;
@@ -10,6 +11,24 @@ public class NewMeeting {
     private String location;
     private Date startDate;
     private Date endDate;
+    private Integer duration;
+    private List<Date> times;
+
+    public List<Date> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<Date> times) {
+        this.times = times;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
 
     public String getTitle() {
         return title;

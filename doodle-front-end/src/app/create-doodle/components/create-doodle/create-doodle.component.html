@@ -13,6 +13,14 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Duration (in hours)</mat-label>
+        <input [(ngModel)]="duration" class="form-input" matInput placeholder="Enter duration"
+               [formControl]="durationFormControl" [errorStateMatcher]="matcher" type="number" min="1" max="24">
+        <mat-error *ngIf="durationFormControl.hasError('required')">
+          Duration is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
         <mat-label>Description (optional)</mat-label>
         <input [(ngModel)]="description" class="form-input" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter description">
       </mat-form-field>
@@ -30,6 +38,27 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
+
+      <div class="add-new-time" *ngIf="range.value.start && range.value.end">
+        <ngx-mat-timepicker [ngModelOptions]="{standalone: true}"  [(ngModel)]="startTime"></ngx-mat-timepicker>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input [formControl]="newTimeDate"  matInput [min]="range.value.start" [max]="range.value.end" [matDatepicker]="pickerAddNewTime">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="pickerAddNewTime"></mat-datepicker-toggle>
+          <mat-datepicker #pickerAddNewTime></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button class="add-time-button" (click)="addNewTime($event)" [disabled]="!range.value.start || !range.value.end">Add time</button>
+      </div>
+
+      <div class="added-times">
+        <div *ngFor="let time of times" class="time">
+          <p>{{time.toUTCString()}}</p>
+        </div>
+      </div>
+
+
+
       <button
         *ngIf="!loadingService.isLoading; else elseBlock"
         [disabled]="titleFormControl.invalid"
@@ -40,6 +69,7 @@
       <ng-template #elseBlock>
         <button class ="submit-button" disabled type="submit" mat-raised-button>Creating...</button>
       </ng-template>
+
     </form>
   </div>
 </div>

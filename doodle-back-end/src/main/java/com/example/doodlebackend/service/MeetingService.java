@@ -3,6 +3,7 @@ package com.example.doodlebackend.service;
 import com.example.doodlebackend.entity.Meeting;
 import com.example.doodlebackend.entity.NewMeeting;
 import com.example.doodlebackend.entity.User;
+import com.example.doodlebackend.entity.Vote;
 import com.example.doodlebackend.exception.UserNotFoundException;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
@@ -24,7 +25,34 @@ public class MeetingService {
     @Autowired
     private Firestore dbFirestore;
 
+    public String vote(Vote vote) throws ExecutionException, InterruptedException {
+        dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("meetings").document(vote.getMeetingId());
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot documentSnapshot = future.get();
+
+        Meeting meeting;
+
+        if(documentSnapshot.exists()) {
+            meeting = documentSnapshot.toObject(Meeting.class);
+        } else {
+            throw new UserNotFoundException();
+        }
+
+        meeting.getVotes().get(vote.getTime()).add(vote.getUserEmail());
+
+        updateMeeting(meeting);
+
+        return meeting.getId();
+
+    }
+
     public Meeting saveMeeting(NewMeeting newMeeting) throws ExecutionException, InterruptedException {
+        Map<String, List<String>> votes = new HashMap<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+        for(Date time : newMeeting.getTimes()) {
+            votes.put(formatter.format(time), new ArrayList<>());
+        }
         Meeting meeting = new Meeting();
         List<String> participants = new ArrayList<>();
         participants.add(newMeeting.getEmail());
@@ -35,6 +63,8 @@ public class MeetingService {
         meeting.setDateTimeStart(newMeeting.getStartDate());
         meeting.setDateTimeEnd(newMeeting.getEndDate());
         meeting.setParticipants(participants);
+        meeting.setDuration(newMeeting.getDuration());
+        meeting.setVotes(votes);
 
         dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<DocumentReference> documentReference = dbFirestore.collection("meetings").add(meeting);

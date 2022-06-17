@@ -14,6 +14,7 @@ import {CreateDoodleModule} from "./create-doodle/create-doodle.module";
 import {ViewDoodleModule} from "./view-doodle/view-doodle.module";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {NgxMatNativeDateModule} from "@angular-material-components/datetime-picker";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {MatNativeDateModule} from "@angular/material/core";
         ViewDoodleModule,
       MatDatepickerModule,
       MatNativeDateModule,
+      NgxMatNativeDateModule
     ],
   providers: [],
   bootstrap: [AppComponent]
