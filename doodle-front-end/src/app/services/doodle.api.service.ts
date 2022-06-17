@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Meeting, NewMeeting} from '../models/Meeting';
+import { Meeting, NewMeeting } from '../models/Meeting';
 import { LoginUser, User } from '../models/User';
 
 const SEPARATOR = '/';
@@ -30,7 +30,7 @@ export class DoodleApiService {
 
   public getUserMeetings(userEmail: string) {
     return this.httpClient.get<Meeting[]>(
-      this._url + SEPARATOR + 'meetings' + SEPARATOR + '?userEmail=' + userEmail
+      this._url + SEPARATOR + 'meetings' + SEPARATOR
     );
   }
 
@@ -41,6 +41,9 @@ export class DoodleApiService {
   }
 
   public saveMeeting(meeting: NewMeeting) {
-    return this.httpClient.post<Meeting>(this._url + SEPARATOR + 'meetings', meeting);
+    return this.httpClient.post<Meeting>(
+      this._url + SEPARATOR + 'meetings',
+      meeting
+    );
   }
 }
