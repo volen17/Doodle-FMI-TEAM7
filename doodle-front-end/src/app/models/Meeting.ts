@@ -1,7 +1,8 @@
 export interface Meeting {
   id: string;
   title: string;
-  dateTime: Date;
+  dateTimeStart: Date;
+  dateTimeEnd: Date;
   location: string;
   description: string;
   owner: string;
