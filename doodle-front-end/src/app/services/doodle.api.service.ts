@@ -36,7 +36,7 @@ export class DoodleApiService {
 
   public getMeeting(meetingId: string): Observable<Meeting> {
     return this.httpClient.get<Meeting>(
-      this._url + SEPARATOR + 'meetings' + SEPARATOR + '?id=' + meetingId
+      this._url + SEPARATOR + 'meetings' + SEPARATOR + meetingId
     );
   }
 
