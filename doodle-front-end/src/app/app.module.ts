@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {ViewDoodlesModule} from "./view-doodles/view-doodles.module";
 import {CreateDoodleModule} from "./create-doodle/create-doodle.module";
 import {ViewDoodleModule} from "./view-doodle/view-doodle.module";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {ViewDoodleModule} from "./view-doodle/view-doodle.module";
         HttpClientModule,
         CreateDoodleModule,
         ViewDoodlesModule,
-        ViewDoodleModule
+        ViewDoodleModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

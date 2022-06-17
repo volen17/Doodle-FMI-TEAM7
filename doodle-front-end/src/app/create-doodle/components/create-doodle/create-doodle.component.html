@@ -6,14 +6,16 @@
     <form class="create-form">
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Your name</mat-label>
-        <input [(ngModel)]="name" matInput placeholder="Enter full name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+        <input [(ngModel)]="name" matInput placeholder="Enter full name" [formControl]="nameFormControl"
+               [errorStateMatcher]="matcher">
         <mat-error *ngIf="nameFormControl.hasError('required')">
           Name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Your email</mat-label>
-        <input [(ngModel)]="email" type="email" matInput placeholder="Enter valid email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+        <input [(ngModel)]="email" type="email" matInput placeholder="Enter valid email"
+               [formControl]="emailFormControl" [errorStateMatcher]="matcher">
         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
           Please enter a valid email address
         </mat-error>
@@ -37,23 +39,26 @@
         <mat-label>Location (optional)</mat-label>
         <input class="form-input" matInput placeholder="Enter location">
       </mat-form-field>
-<!--      <mat-form-field appearance="fill">-->
-<!--        <mat-label>Enter a date range</mat-label>-->
-<!--        <mat-date-range-input [rangePicker]="picker">-->
-<!--          <input matStartDate placeholder="Start date">-->
-<!--          <input matEndDate placeholder="End date">-->
-<!--        </mat-date-range-input>-->
-<!--        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
-<!--        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--        <mat-date-range-picker #picker></mat-date-range-picker>-->
-<!--      </mat-form-field>-->
-
-
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker" [min]="nowDate">
+          <input matStartDate placeholder="Start date">
+          <input matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
       <button
+        *ngIf="!loadingService.isLoading; else elseBlock"
+        [disabled]="emailFormControl.invalid || nameFormControl.invalid || titleFormControl.invalid"
         class ="submit-button"
         type="submit"
         mat-raised-button
       >Create invite and continue</button>
+      <ng-template #elseBlock>
+        <button class ="submit-button" disabled type="submit" mat-raised-button>Creating...</button>
+      </ng-template>
     </form>
   </div>
 </div>

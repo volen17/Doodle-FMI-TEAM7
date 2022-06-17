@@ -39,4 +39,10 @@ export class DoodleApiService {
       this._url + SEPARATOR + 'meetings' + SEPARATOR + meetingId
     );
   }
+
+  public saveMeeting(meeting: Meeting) {
+    return this.httpClient.post(this._url + SEPARATOR + 'meetings', meeting, {
+      responseType: 'text',
+    });
+  }
 }
